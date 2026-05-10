@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ event.title }} | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>{{ event.title }}</h1>
+        <p>{{ event.orgName }} • {{ event.category }}</p>
+    </div>
+    <a class="btn primary" href="{{ url_for('add_rsvp', eventID=event.eventID) }}">RSVP</a>
+</div>
+
+<section class="detail-grid">
+    <div class="panel">
+        <h2>Event Details</h2>
+        <p><strong>Date:</strong> {{ event.eventDate }}</p>
+        <p><strong>Time:</strong> {{ event.startTime }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Capacity:</strong> {{ event.capacity }}</p>
+        <p><strong>Confirmed RSVPs:</strong> {{ event.confirmedCount }}</p>
+        <p><strong>Seats Left:</strong> {{ event.seatsLeft }}</p>
+        <p><strong>Contact:</strong> {{ event.contactEmail }}</p>
+        <p>{{ event.description }}</p>
+    </div>
+
+    <div class="panel">
+        <h2>RSVP List</h2>
+        {% if rsvps %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>RSVP Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rsvp in rsvps %}
+                <tr>
+                    <td>{{ rsvp.firstName }} {{ rsvp.lastName }}</td>
+                    <td>{{ rsvp.BMCCemail }}</td>
+                    <td><span class="status {{ rsvp.status|lower }}">{{ rsvp.status }}</span></td>
+                    <td>{{ rsvp.rsvpDate }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No RSVPs yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

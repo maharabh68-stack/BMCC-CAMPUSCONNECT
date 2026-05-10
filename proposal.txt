@@ -1,0 +1,11 @@
+BMCC CampusConnect: A New Student Club, Resource, and Event Discovery System
+
+BMCC CampusConnect is a database-driven web application prototype designed to help new BMCC students discover campus organizations, clubs, resources, and events. The system allows students to view organizations, browse events, RSVP for events, and track event participation.
+
+This project supports the New Student Community theme by helping students connect with campus life, mentorship opportunities, STEM/AI events, career workshops, wellness resources, academic support, and student organizations. Many new students may not know where to find useful campus opportunities. BMCC CampusConnect organizes that information in one database-driven system.
+
+The application uses Flask, SQLite, HTML, CSS, and Jinja templates. It includes related database tables for Student, Organization, EventCategory, Event, and RSVP. The database uses primary keys and foreign keys to show meaningful relationships between students, events, and organizations.
+
+The application supports common database operations: inserting new records, retrieving and displaying data, updating existing records, and deleting records. Users can manage student records, organization records, event records, and RSVP records. The Reports page also uses SQL joins, COUNT, GROUP BY, and HAVING to display useful information such as total RSVPs per event, seats left per event, events by category, events hosted by each organization, and students with multiple RSVPs.
+
+This is an academic prototype for CIS 395 Database Systems I. It uses real BMCC-style names and realistic sample data for demonstration purposes only. It is not an official BMCC platform.

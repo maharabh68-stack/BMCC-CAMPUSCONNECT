@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Event | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>{{ action }} Event</h1>
+        <p>Create or update campus event information.</p>
+    </div>
+</div>
+
+<form class="form-card" method="post">
+    <label>Event Title *</label>
+    <input type="text" name="title" value="{{ event.title if event else '' }}" required>
+
+    <label>Event Date *</label>
+    <input type="date" name="eventDate" value="{{ event.eventDate if event else '' }}" required>
+
+    <label>Start Time</label>
+    <input type="time" name="startTime" value="{{ event.startTime if event else '' }}">
+
+    <label>Location</label>
+    <input type="text" name="location" value="{{ event.location if event else '' }}">
+
+    <label>Category</label>
+    <select name="category">
+        <option value="">Select category</option>
+        {% set selected_category = event.category if event else '' %}
+        {% for c in categories %}
+        <option value="{{ c.categoryName }}" {% if selected_category == c.categoryName %}selected{% endif %}>{{ c.categoryName }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Organization *</label>
+    <select name="orgID" required>
+        <option value="">Select organization</option>
+        {% set selected_org = event.orgID|string if event else '' %}
+        {% for org in orgs %}
+        <option value="{{ org.orgID }}" {% if selected_org == org.orgID|string %}selected{% endif %}>{{ org.orgName }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Capacity</label>
+    <input type="number" min="0" name="capacity" value="{{ event.capacity if event else '' }}">
+
+    <label>Description</label>
+    <textarea name="description" rows="5">{{ event.description if event else '' }}</textarea>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn light" href="{{ url_for('events') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

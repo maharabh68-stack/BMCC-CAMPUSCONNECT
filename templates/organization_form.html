@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Organization | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>{{ action }} Organization</h1>
+        <p>Add or update club/resource information.</p>
+    </div>
+</div>
+
+<form class="form-card" method="post">
+    <label>Organization Name *</label>
+    <input type="text" name="orgName" value="{{ organization.orgName if organization else '' }}" required>
+
+    <label>Organization Type *</label>
+    <input type="text" name="orgType" value="{{ organization.orgType if organization else '' }}" placeholder="Student Club, Campus Office, Mentorship Program" required>
+
+    <label>Category</label>
+    <input type="text" name="category" value="{{ organization.category if organization else '' }}" placeholder="STEM / AI, Career, Wellness, Leadership">
+
+    <label>Contact Email</label>
+    <input type="email" name="contactEmail" value="{{ organization.contactEmail if organization else '' }}">
+
+    <label>Description</label>
+    <textarea name="description" rows="5">{{ organization.description if organization else '' }}</textarea>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn light" href="{{ url_for('organizations') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

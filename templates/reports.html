@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Reports | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>Reports</h1>
+        <p>SQL reports using JOIN, COUNT, GROUP BY, and HAVING.</p>
+    </div>
+</div>
+
+<section class="report-grid">
+    <div class="panel wide">
+        <h2>Total RSVPs and Seats Left Per Event</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Organization</th>
+                    <th>Total RSVPs</th>
+                    <th>Confirmed</th>
+                    <th>Capacity</th>
+                    <th>Seats Left</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in total_rsvps_per_event %}
+                <tr>
+                    <td>{{ row.title }}</td>
+                    <td>{{ row.eventDate }}</td>
+                    <td>{{ row.orgName }}</td>
+                    <td>{{ row.totalRSVPs }}</td>
+                    <td>{{ row.confirmedRSVPs }}</td>
+                    <td>{{ row.capacity }}</td>
+                    <td>{{ row.seatsLeft }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>Events by Category</h2>
+        <table>
+            <thead><tr><th>Category</th><th>Events</th></tr></thead>
+            <tbody>
+                {% for row in events_by_category %}
+                <tr><td>{{ row.category }}</td><td>{{ row.eventCount }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>Events Hosted by Organization</h2>
+        <table>
+            <thead><tr><th>Organization</th><th>Events</th></tr></thead>
+            <tbody>
+                {% for row in events_by_org %}
+                <tr><td>{{ row.orgName }}</td><td>{{ row.eventCount }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel wide">
+        <h2>Students with Multiple RSVPs</h2>
+        <table>
+            <thead><tr><th>Student</th><th>Email</th><th>RSVP Count</th></tr></thead>
+            <tbody>
+                {% for row in students_multiple_rsvps %}
+                <tr>
+                    <td>{{ row.firstName }} {{ row.lastName }}</td>
+                    <td>{{ row.BMCCemail }}</td>
+                    <td>{{ row.rsvpCount }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3">No students with multiple RSVPs.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

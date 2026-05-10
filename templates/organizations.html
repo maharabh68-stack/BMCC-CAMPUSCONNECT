@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Organizations | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>Organizations, Clubs, and Resources</h1>
+        <p>Browse BMCC-style clubs, offices, and student support resources.</p>
+    </div>
+    <a class="btn primary" href="{{ url_for('add_organization') }}">Add Organization</a>
+</div>
+
+<form class="filter-bar" method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search organization name or description">
+    <select name="category">
+        <option value="">All categories</option>
+        {% for c in categories %}
+        <option value="{{ c.category }}" {% if selected_category == c.category %}selected{% endif %}>{{ c.category }}</option>
+        {% endfor %}
+    </select>
+    <select name="orgType">
+        <option value="">All types</option>
+        {% for t in org_types %}
+        <option value="{{ t.orgType }}" {% if selected_orgType == t.orgType %}selected{% endif %}>{{ t.orgType }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn" type="submit">Filter</button>
+    <a class="btn light" href="{{ url_for('organizations') }}">Reset</a>
+</form>
+
+<div class="card-grid">
+    {% for org in organizations %}
+    <article class="org-card">
+        <div class="tag-row">
+            <span class="tag">{{ org.category }}</span>
+            <span class="tag soft">{{ org.orgType }}</span>
+        </div>
+        <h2>{{ org.orgName }}</h2>
+        <p>{{ org.description }}</p>
+        <p class="muted">{{ org.contactEmail }}</p>
+        <div class="card-actions">
+            <a class="btn small-btn" href="{{ url_for('edit_organization', id=org.orgID) }}">Edit</a>
+            <form method="post" action="{{ url_for('delete_organization', id=org.orgID) }}" onsubmit="return confirm('Delete this organization and related events?');">
+                <button class="btn danger small-btn" type="submit">Delete</button>
+            </form>
+        </div>
+    </article>
+    {% else %}
+    <p>No organizations found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

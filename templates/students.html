@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Students | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>Students</h1>
+        <p>Manage student records used for event RSVPs.</p>
+    </div>
+    <a class="btn primary" href="{{ url_for('add_student') }}">Add Student</a>
+</div>
+
+<form class="filter-bar" method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search by name, email, or major">
+    <button class="btn" type="submit">Search</button>
+    <a class="btn light" href="{{ url_for('students') }}">Reset</a>
+</form>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>BMCC Email</th>
+                <th>Major</th>
+                <th>Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.studentID }}</td>
+                <td>{{ student.firstName }} {{ student.lastName }}</td>
+                <td>{{ student.BMCCemail }}</td>
+                <td>{{ student.major }}</td>
+                <td>{{ student.yearLevel }}</td>
+                <td class="actions">
+                    <a class="btn small-btn" href="{{ url_for('edit_student', id=student.studentID) }}">Edit</a>
+                    <form method="post" action="{{ url_for('delete_student', id=student.studentID) }}" onsubmit="return confirm('Delete this student?');">
+                        <button class="btn danger small-btn" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6">No students found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

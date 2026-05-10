@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Home | BMCC CampusConnect{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">CIS 395 Database Systems I Project</p>
+        <h1>BMCC CampusConnect</h1>
+        <p class="hero-text">Discover clubs, events, resources, mentorship opportunities, and student support programs.</p>
+        <div class="hero-actions">
+            <a class="btn primary" href="{{ url_for('organizations') }}">Browse Organizations</a>
+            <a class="btn secondary" href="{{ url_for('events') }}">Browse Events</a>
+        </div>
+    </div>
+    <div class="hero-card">
+        <h3>Prototype Purpose</h3>
+        <p>This database-driven web app helps new students connect with campus life through organized data, event discovery, and RSVP tracking.</p>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card"><span>{{ stats.students }}</span><p>Total Students</p></div>
+    <div class="stat-card"><span>{{ stats.organizations }}</span><p>Organizations</p></div>
+    <div class="stat-card"><span>{{ stats.events }}</span><p>Events</p></div>
+    <div class="stat-card"><span>{{ stats.rsvps }}</span><p>RSVPs</p></div>
+</section>
+
+<section class="quick-grid">
+    <a class="quick-card" href="{{ url_for('organizations') }}">
+        <h2>Browse Organizations</h2>
+        <p>Explore clubs, offices, resources, and student support groups.</p>
+    </a>
+    <a class="quick-card" href="{{ url_for('events') }}">
+        <h2>Browse Events</h2>
+        <p>Find upcoming events, STEM/AI programs, workshops, and club activities.</p>
+    </a>
+    <a class="quick-card small" href="{{ url_for('add_rsvp') }}">
+        <h3>RSVP for Event</h3>
+        <p>Register a student for an event.</p>
+    </a>
+    <a class="quick-card small" href="{{ url_for('reports') }}">
+        <h3>View Reports</h3>
+        <p>See counts, seats left, and event summaries.</p>
+    </a>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Upcoming Events</h2>
+        <a href="{{ url_for('events') }}">View all events</a>
+    </div>
+    <div class="event-list">
+        {% for event in upcoming_events %}
+        <div class="mini-event">
+            <div>
+                <h3>{{ event.title }}</h3>
+                <p>{{ event.orgName }} • {{ event.eventDate }}{% if event.startTime %} at {{ event.startTime }}{% endif %}</p>
+                <p class="muted">{{ event.category }} • Seats left: {{ event.seatsLeft }}</p>
+            </div>
+            <a class="btn small-btn" href="{{ url_for('view_event', id=event.eventID) }}">View</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

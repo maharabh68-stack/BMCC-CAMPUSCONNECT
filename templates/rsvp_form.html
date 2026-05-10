@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} RSVP | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>{{ action }} RSVP</h1>
+        <p>Select a student, event, RSVP date, and status.</p>
+    </div>
+</div>
+
+<form class="form-card" method="post">
+    <label>Student *</label>
+    <select name="studentID" required>
+        <option value="">Select student</option>
+        {% set selected_student = rsvp.studentID|string if rsvp else '' %}
+        {% for student in students %}
+        <option value="{{ student.studentID }}" {% if selected_student == student.studentID|string %}selected{% endif %}>
+            {{ student.lastName }}, {{ student.firstName }} — {{ student.BMCCemail }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Event *</label>
+    <select name="eventID" required>
+        <option value="">Select event</option>
+        {% set selected_event = rsvp.eventID|string if rsvp else '' %}
+        {% for event in events %}
+        <option value="{{ event.eventID }}" {% if selected_event == event.eventID|string %}selected{% endif %}>
+            {{ event.eventDate }} — {{ event.title }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>RSVP Date *</label>
+    <input type="date" name="rsvpDate" value="{{ rsvp.rsvpDate if rsvp else today }}" required>
+
+    <label>Status *</label>
+    {% set selected_status = rsvp.status if rsvp else 'Confirmed' %}
+    <select name="status" required>
+        <option value="Confirmed" {% if selected_status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+        <option value="Waitlisted" {% if selected_status == 'Waitlisted' %}selected{% endif %}>Waitlisted</option>
+        <option value="Cancelled" {% if selected_status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+    </select>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn light" href="{{ url_for('rsvps') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}RSVPs | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>RSVPs</h1>
+        <p>Manage student event registration records.</p>
+    </div>
+    <a class="btn primary" href="{{ url_for('add_rsvp') }}">Add RSVP</a>
+</div>
+
+<div class="table-card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Organization</th>
+                <th>Status</th>
+                <th>RSVP Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rsvp in rsvps %}
+            <tr>
+                <td>{{ rsvp.rsvpID }}</td>
+                <td>{{ rsvp.firstName }} {{ rsvp.lastName }}</td>
+                <td>{{ rsvp.BMCCemail }}</td>
+                <td>{{ rsvp.title }}</td>
+                <td>{{ rsvp.eventDate }}</td>
+                <td>{{ rsvp.orgName }}</td>
+                <td><span class="status {{ rsvp.status|lower }}">{{ rsvp.status }}</span></td>
+                <td>{{ rsvp.rsvpDate }}</td>
+                <td class="actions">
+                    <a class="btn small-btn" href="{{ url_for('edit_rsvp', id=rsvp.rsvpID) }}">Edit</a>
+                    <form method="post" action="{{ url_for('delete_rsvp', id=rsvp.rsvpID) }}" onsubmit="return confirm('Delete this RSVP?');">
+                        <button class="btn danger small-btn" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="9">No RSVPs found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

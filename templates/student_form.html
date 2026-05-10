@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Student | BMCC CampusConnect{% endblock %}
+{% block content %}
+<div class="page-title">
+    <div>
+        <h1>{{ action }} Student</h1>
+        <p>Enter student information.</p>
+    </div>
+</div>
+
+<form class="form-card" method="post">
+    <label>First Name *</label>
+    <input type="text" name="firstName" value="{{ student.firstName if student else '' }}" required>
+
+    <label>Last Name *</label>
+    <input type="text" name="lastName" value="{{ student.lastName if student else '' }}" required>
+
+    <label>BMCC Email *</label>
+    <input type="email" name="BMCCemail" value="{{ student.BMCCemail if student else '' }}" required>
+
+    <label>Major</label>
+    <input type="text" name="major" value="{{ student.major if student else '' }}">
+
+    <label>Year Level</label>
+    <select name="yearLevel">
+        {% set selected = student.yearLevel if student else '' %}
+        <option value="">Select year</option>
+        <option value="Freshman" {% if selected == 'Freshman' %}selected{% endif %}>Freshman</option>
+        <option value="Sophomore" {% if selected == 'Sophomore' %}selected{% endif %}>Sophomore</option>
+        <option value="Transfer" {% if selected == 'Transfer' %}selected{% endif %}>Transfer</option>
+    </select>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn light" href="{{ url_for('students') }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}
