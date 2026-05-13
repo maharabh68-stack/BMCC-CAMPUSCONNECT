@@ -108,6 +108,7 @@ def students():
 @app.route("/students/add", methods=["GET", "POST"])
 def add_student():
     if request.method == "POST":
+        emplid = request.form.get("emplid", "").strip()
         firstName = request.form.get("firstName", "").strip()
         lastName = request.form.get("lastName", "").strip()
         BMCCemail = request.form.get("BMCCemail", "").strip()
@@ -142,26 +143,26 @@ def edit_student(id):
     student = fetch_one_or_404("SELECT * FROM Student WHERE studentID = ?", (id,))
 
     if request.method == "POST":
+        emplid = request.form.get("emplid", "").strip()
         firstName = request.form.get("firstName", "").strip()
         lastName = request.form.get("lastName", "").strip()
         BMCCemail = request.form.get("BMCCemail", "").strip()
         major = request.form.get("major", "").strip()
-        yearLevel = request.form.get("yearLevel", "").strip()
+        yearLevel = request.form.get("yearLevel", "").strip()  
 
-        if not firstName or not lastName or not BMCCemail:
-            flash("First name, last name, and BMCC email are required.", "error")
-            return render_template("student_form.html", student=request.form, action="Edit")
-
+        if not emplid or not firstName or not lastName or not BMCCemail:
+            flash("EMPLID, first name, last name, and BMCC email are required.", "error")
+            return render_template("student_form.html", student=request.form, action="Edit")         
         try:
             conn = get_db_connection()
             conn.execute(
-                """
-                UPDATE Student
-                SET firstName = ?, lastName = ?, BMCCemail = ?, major = ?, yearLevel = ?
-                WHERE studentID = ?
-                """,
-                (firstName, lastName, BMCCemail, major, yearLevel, id),
-            )
+            """
+            UPDATE Student
+            SET emplid = ?, firstName = ?, lastName = ?, BMCCemail = ?, major = ?, yearLevel = ?
+            WHERE studentID = ?
+            """,
+            (emplid, firstName, lastName, BMCCemail, major, yearLevel, id)
+)
             conn.commit()
             conn.close()
             flash("Student updated successfully.", "success")

@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS EventCategory;
 
 CREATE TABLE Student (
     studentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    emplid TEXT NOT NULL UNIQUE,
     firstName TEXT NOT NULL,
     lastName TEXT NOT NULL,
     BMCCemail TEXT NOT NULL UNIQUE,
@@ -67,22 +68,24 @@ INSERT INTO EventCategory (categoryName, description) VALUES
 ('Sustainability', 'Environmental awareness and sustainability events.'),
 ('Leadership', 'Student leadership and government events.');
 
-INSERT INTO Student (firstName, lastName, BMCCemail, major, yearLevel) VALUES
-('Amina', 'Rahman', 'amina.rahman@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
-('Jason', 'Lee', 'jason.lee@stu.bmcc.cuny.edu', 'Business Administration', 'Sophomore'),
-('Maria', 'Gonzalez', 'maria.gonzalez@stu.bmcc.cuny.edu', 'Nursing', 'Freshman'),
-('Daniel', 'Chen', 'daniel.chen@stu.bmcc.cuny.edu', 'Data Analytics', 'Sophomore'),
-('Fatima', 'Ahmed', 'fatima.ahmed@stu.bmcc.cuny.edu', 'Liberal Arts', 'Freshman'),
-('Kevin', 'Brown', 'kevin.brown@stu.bmcc.cuny.edu', 'Cybersecurity', 'Sophomore'),
-('Nadia', 'Khan', 'nadia.khan@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
-('Omar', 'Santos', 'omar.santos@stu.bmcc.cuny.edu', 'Engineering Science', 'Sophomore'),
-('Grace', 'Kim', 'grace.kim@stu.bmcc.cuny.edu', 'Psychology', 'Freshman'),
-('Mohammed', 'Hossain', 'mohammed.hossain@stu.bmcc.cuny.edu', 'Computer Information Systems', 'Sophomore'),
-('Emily', 'Rivera', 'emily.rivera@stu.bmcc.cuny.edu', 'Criminal Justice', 'Freshman'),
-('Ryan', 'Patel', 'ryan.patel@stu.bmcc.cuny.edu', 'Accounting', 'Sophomore'),
-('Sara', 'Ali', 'sara.ali@stu.bmcc.cuny.edu', 'Health Education', 'Freshman'),
-('Luis', 'Martinez', 'luis.martinez@stu.bmcc.cuny.edu', 'Computer Science', 'Sophomore'),
-('Hannah', 'Wilson', 'hannah.wilson@stu.bmcc.cuny.edu', 'Human Services', 'Freshman');
+INSERT INTO Student (emplid, firstName, lastName, BMCCemail, major, yearLevel) VALUES
+('24680121', 'Fatima', 'Ali', 'fatima.ali@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
+('24680122', 'Ahmed', 'Ali', 'ahmed.ali@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
+('24680123', 'Fatima', 'Ahmed', 'fatima.ahmed@stu.bmcc.cuny.edu', 'Liberal Arts', 'Freshman'),
+('24680124', 'Amina', 'Rahman', 'amina.rahman@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
+('24680125', 'Jason', 'Lee', 'jason.lee@stu.bmcc.cuny.edu', 'Business Administration', 'Sophomore'),
+('24680126', 'Maria', 'Gonzalez', 'maria.gonzalez@stu.bmcc.cuny.edu', 'Nursing', 'Freshman'),
+('24680127', 'Daniel', 'Chen', 'daniel.chen@stu.bmcc.cuny.edu', 'Data Analytics', 'Sophomore'),
+('24680128', 'Kevin', 'Brown', 'kevin.brown@stu.bmcc.cuny.edu', 'Cybersecurity', 'Sophomore'),
+('24680129', 'Nadia', 'Khan', 'nadia.khan@stu.bmcc.cuny.edu', 'Computer Science', 'Freshman'),
+('24680130', 'Omar', 'Santos', 'omar.santos@stu.bmcc.cuny.edu', 'Engineering Science', 'Sophomore'),
+('24680131', 'Grace', 'Kim', 'grace.kim@stu.bmcc.cuny.edu', 'Psychology', 'Freshman'),
+('24680132', 'Mohammed', 'Hossain', 'mohammed.hossain@stu.bmcc.cuny.edu', 'Computer Information Systems', 'Sophomore'),
+('24680133', 'Emily', 'Rivera', 'emily.rivera@stu.bmcc.cuny.edu', 'Criminal Justice', 'Freshman'),
+('24680134', 'Ryan', 'Patel', 'ryan.patel@stu.bmcc.cuny.edu', 'Accounting', 'Sophomore'),
+('24680135', 'Sara', 'Ali', 'sara.ali@stu.bmcc.cuny.edu', 'Health Education', 'Freshman'),
+('24680136', 'Luis', 'Martinez', 'luis.martinez@stu.bmcc.cuny.edu', 'Computer Science', 'Sophomore'),
+('24680137', 'Hannah', 'Smith', 'hannah.smith@stu.bmcc.cuny.edu', 'Human Services', 'Freshman');
 
 INSERT INTO Organization (orgName, orgType, category, contactEmail, description) VALUES
 ('Student Government Association (SGA)', 'Student Organization', 'Leadership', 'sga@bmcc.cuny.edu', 'Student leadership group that represents student voices and supports campus activities.'),

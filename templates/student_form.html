@@ -9,6 +9,9 @@
 </div>
 
 <form class="form-card" method="post">
+    <label>EMPLID *</label>
+    <input type="text" name="emplid" value="{{ student.emplid if student else '' }}" required>
+
     <label>First Name *</label>
     <input type="text" name="firstName" value="{{ student.firstName if student else '' }}" required>
 
